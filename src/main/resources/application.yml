@@ -1,0 +1,22 @@
+server:
+  port: 88
+
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+
+logging:
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+  path: "./logs/"
+  file: "./logs/my.log"
+  file.max-size: 10MB
+  level:
+    root: INFO
+
+url:
+  weather: http://wthrcdn.etouch.cn/weather_mini?city=
