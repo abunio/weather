@@ -29,14 +29,14 @@ public class WeatherController {
     private WeatherDataService weatherDataService;
 
     @RequestMapping(value = "/{city}", method = RequestMethod.GET)
-    public String get(@PathVariable("city") String city,Model model) {
+    public String get(@PathVariable("city") String city, Model model) {
         String URL = url + city;
         ResponseEntity<String> entity = restTemplate.getForEntity(URL, String.class);
         WeatherResponse weather = weatherDataService.getWeather(entity.getBody());
-        if(weather==null) return "error";
+        if (weather == null) return "error";
 
-        model.addAttribute("Forecast",weather.getForecastList());
-        model.addAttribute("weather",weather.getWeather());
+        model.addAttribute("Forecast", weather.getForecastList());
+        model.addAttribute("weather", weather.getWeather());
         return "weather";
     }
 
