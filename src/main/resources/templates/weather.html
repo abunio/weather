@@ -5,25 +5,34 @@
 </head>
 
 <body>
-    <li th:text="${weather.citys}"></li>
+    <div align="center">
+        <h3>天气情况</h3>
+        <table border="1">
+            <tr >
+                <td colspan="12" th:text="${weather.citys}"></td>
+            </tr>
+            <tr>
+                <td colspan="12" th:text="${weather.ganmao}"></td>
+            </tr>
 
-    <table border="1">
-        <tr>
-            <th>日期</th>
-            <th>天气</th>
-            <th>最低温</th>
-            <th>最高温</th>
-            <th>风向</th>
-        </tr>
-        <tr th:each="wea : ${Forecast}">
-            <td th:text="${wea.date}"></td>
-            <td th:text="${wea.type}"></td>
-            <td th:text="${wea.low}"></td>
-            <td th:text="${wea.high}"></td>
-            <td th:text="${wea.fengxiang}"></td>
-        </tr>
-    </table>
-    <li th:text="${weather.ganmao}"></li>
+            <tr>
+                <th colspan="">日期</th>
+                <th>天气</th>
+                <th>最低温</th>
+                <th>最高温</th>
+                <th>风向</th>
+                <th>风力</th>
+            </tr>
+            <tr th:each="wea : ${Forecast}">
+                <td th:text="${wea.date}"></td>
+                <td th:text="${wea.type}"></td>
+                <td th:text="${wea.low}"></td>
+                <td th:text="${wea.high}"></td>
+                <td th:text="${wea.fengxiang}"></td>
+                <td th:text="${wea.fengli}"></td>
+            </tr>
+        </table>
+    </div>
 </body>
 
 </html>
