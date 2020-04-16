@@ -1,5 +1,5 @@
 server:
-  port: 88
+  port: 66
 
 spring:
   thymeleaf:
@@ -7,6 +7,10 @@ spring:
     suffix: .html
     mode: HTML5
     encoding: UTF-8
+  security:
+    user:
+      name: admin
+      password: 123456
 
 logging:
   pattern:

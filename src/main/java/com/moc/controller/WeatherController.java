@@ -30,6 +30,8 @@ public class WeatherController {
 
     @RequestMapping(value = "/{city}", method = RequestMethod.GET)
     public String get(@PathVariable("city") String city, Model model) {
+        if(city.equalsIgnoreCase("wh"))
+            city = "武汉";
         String URL = url + city;
         ResponseEntity<String> entity = restTemplate.getForEntity(URL, String.class);
         WeatherResponse weather = weatherDataService.getWeather(entity.getBody());
