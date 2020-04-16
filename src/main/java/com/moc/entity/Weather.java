@@ -19,5 +19,6 @@ public class Weather implements Serializable {
     private String wendu;
     private String ganmao;
     private String citys;
+    private String prompt;
 
 }

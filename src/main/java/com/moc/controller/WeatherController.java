@@ -28,10 +28,13 @@ public class WeatherController {
     @Autowired
     private WeatherDataService weatherDataService;
 
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
+    }
+
     @RequestMapping(value = "/{city}", method = RequestMethod.GET)
     public String get(@PathVariable("city") String city, Model model) {
-        if(city.equalsIgnoreCase("wh"))
-            city = "武汉";
         String URL = url + city;
         ResponseEntity<String> entity = restTemplate.getForEntity(URL, String.class);
         WeatherResponse weather = weatherDataService.getWeather(entity.getBody());
@@ -41,5 +44,19 @@ public class WeatherController {
         model.addAttribute("weather", weather.getWeather());
         return "weather";
     }
+
+    @RequestMapping(value = "/weather", method = RequestMethod.GET)
+    public String gets(@RequestParam("city") String city, Model model) {
+        String URL = url + city;
+        ResponseEntity<String> entity = restTemplate.getForEntity(URL, String.class);
+        WeatherResponse weather = weatherDataService.getWeather(entity.getBody());
+        if (weather == null) return "error";
+
+        model.addAttribute("Forecast", weather.getForecastList());
+        model.addAttribute("weather", weather.getWeather());
+        return "weather";
+    }
+
+
 
 }

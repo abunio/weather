@@ -45,6 +45,8 @@ public class WeatherDataServiceImpl implements WeatherDataService {
             weather.setWendu(String.valueOf(maps.get("wendu")));
             String s = "当前城市：" + weather.getCity() + "，当前温度：" + weather.getWendu() + " 度。";
             weather.setCitys(s);
+            String prompt = "温馨提示：" + weather.getGanmao();
+            weather.setPrompt(prompt);
             weatherResponse.setWeather(weather);
 
             List<Forecast> list = JSON.parseArray(String.valueOf(maps.get("forecast")), Forecast.class);

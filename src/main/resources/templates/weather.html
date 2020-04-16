@@ -4,14 +4,15 @@
 </head>
 <body>
     <div align="center">
-        <h3>天气情况</h3>
-        <button onclick="window.location.href='http://localhost:66/logout'" >退出</button>
+        <h3>尊敬的用户您好，欢迎查看当前城市的天气情况</h3>
+        <button onclick="window.location.href='http://localhost:66/index'" >返回主页</button>
+        <button onclick="window.location.href='http://localhost:66/logout'" >用户退出</button>
         <table border="1">
             <tr >
                 <td colspan="12" th:text="${weather.citys}"></td>
             </tr>
             <tr>
-                <td colspan="12" th:text="${weather.ganmao}"></td>
+                <td colspan="12" th:text="${weather.prompt}"></td>
             </tr>
             <tr>
                 <th>日期</th>
