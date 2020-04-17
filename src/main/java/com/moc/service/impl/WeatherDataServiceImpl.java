@@ -7,7 +7,11 @@ import com.moc.entity.Weather;
 import com.moc.entity.WeatherResponse;
 import com.moc.service.WeatherDataService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,19 +27,27 @@ import java.util.Map;
 @Slf4j
 public class WeatherDataServiceImpl implements WeatherDataService {
 
+    @Value("${url.weather}")
+    private String url;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     /**
      * 数据处理
      *
-     * @param body
+     * @param city
      * @return
      */
     @Override
-    public WeatherResponse getWeather(String body) {
+    public WeatherResponse getWeather(String city) {
 
         WeatherResponse weatherResponse = new WeatherResponse();
-        log.info("body-->" + body);
-        Map<String, Object> map = JSON.parseObject(body);
+
+        String URL = url + city;
+        ResponseEntity<String> entity = restTemplate.getForEntity(URL, String.class);
+        log.info("body->");
+        Map<String, Object> map = JSON.parseObject(entity.getBody());
         if (String.valueOf(map.get("status")).equals("1000")) {
             Map<String, Object> maps = JSON.parseObject(String.valueOf(map.get("data")));
 

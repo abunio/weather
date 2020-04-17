@@ -19,42 +19,40 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class WeatherController {
 
-    @Value("${url.weather}")
-    private String url;
 
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Autowired
     private WeatherDataService weatherDataService;
 
     @RequestMapping("/index")
-    public String index(){
+    public String index(Model model){
+        WeatherResponse weather = weatherDataService.getWeather("武汉");
+        if (weather == null) return "error";
+
+        model.addAttribute("Forecast", weather.getForecastList());
+        model.addAttribute("weather", weather.getWeather());
         return "index";
     }
 
     @RequestMapping(value = "/{city}", method = RequestMethod.GET)
     public String get(@PathVariable("city") String city, Model model) {
-        String URL = url + city;
-        ResponseEntity<String> entity = restTemplate.getForEntity(URL, String.class);
-        WeatherResponse weather = weatherDataService.getWeather(entity.getBody());
+
+        WeatherResponse weather = weatherDataService.getWeather(city);
         if (weather == null) return "error";
 
         model.addAttribute("Forecast", weather.getForecastList());
         model.addAttribute("weather", weather.getWeather());
-        return "weather";
+        return "index";
     }
 
     @RequestMapping(value = "/weather", method = RequestMethod.GET)
     public String gets(@RequestParam("city") String city, Model model) {
-        String URL = url + city;
-        ResponseEntity<String> entity = restTemplate.getForEntity(URL, String.class);
-        WeatherResponse weather = weatherDataService.getWeather(entity.getBody());
+        WeatherResponse weather = weatherDataService.getWeather(city);
         if (weather == null) return "error";
 
         model.addAttribute("Forecast", weather.getForecastList());
         model.addAttribute("weather", weather.getWeather());
-        return "weather";
+        return "index";
     }
 
 
