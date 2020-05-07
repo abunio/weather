@@ -19,13 +19,21 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class WeatherController {
 
-
-
     @Autowired
     private WeatherDataService weatherDataService;
 
-    @RequestMapping("/index")
+    @RequestMapping("")
     public String index(Model model){
+        WeatherResponse weather = weatherDataService.getWeather("武汉");
+        if (weather == null) return "error";
+
+        model.addAttribute("Forecast", weather.getForecastList());
+        model.addAttribute("weather", weather.getWeather());
+        return "index";
+    }
+
+    @RequestMapping("/index")
+    public String indexs(Model model){
         WeatherResponse weather = weatherDataService.getWeather("武汉");
         if (weather == null) return "error";
 
@@ -54,7 +62,5 @@ public class WeatherController {
         model.addAttribute("weather", weather.getWeather());
         return "index";
     }
-
-
 
 }

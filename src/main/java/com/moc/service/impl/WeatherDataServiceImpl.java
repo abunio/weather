@@ -46,7 +46,7 @@ public class WeatherDataServiceImpl implements WeatherDataService {
 
         String URL = url + city;
         ResponseEntity<String> entity = restTemplate.getForEntity(URL, String.class);
-        log.info("body->");
+        log.info("body -> " + entity);
         Map<String, Object> map = JSON.parseObject(entity.getBody());
         if (String.valueOf(map.get("status")).equals("1000")) {
             Map<String, Object> maps = JSON.parseObject(String.valueOf(map.get("data")));
